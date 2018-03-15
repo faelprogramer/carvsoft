@@ -1,7 +1,10 @@
 package br.com.carvsoft.view;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,8 +34,15 @@ public class Login extends JFrame {
 
     public Login() {
         initComponents();
+        setIcone();
     }
-    
+
+    private void setIcone() {
+        URL url = this.getClass().getResource("/br/com/carvsoft/model/resources/app.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        setIconImage(iconeTitulo);
+    }
+
     private void btn_okActionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, "Logar");
         dispose();
@@ -53,7 +63,7 @@ public class Login extends JFrame {
 
         jPanel1.setBackground(Color.WHITE);
         jPanel2.setBackground(jPanel1.getBackground());
-        
+
         lb_login.setHorizontalAlignment(SwingConstants.CENTER);
         lb_login.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/login.png")));
 
@@ -71,46 +81,46 @@ public class Login extends JFrame {
             btn_okActionPerformed(evt);
         });
         getRootPane().setDefaultButton(btn_ok);
-        
+
         montarLayout();
-        
+
         pack();
-        
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     private void montarLayout() {
         jPanel2.add(btn_ok);
-        
+
         GroupLayout gl = new GroupLayout(jPanel1);
         jPanel1.setLayout(gl);
         gl.setHorizontalGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(gl.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lb_login, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                        .addComponent(lb_usuario, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_usuario)
-                                        .addComponent(lb_senha, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_senha))
-                                .addContainerGap())
+                .addGroup(gl.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lb_login, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(lb_usuario, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_usuario)
+                                .addComponent(lb_senha, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_senha))
+                        .addContainerGap())
         );
         gl.setVerticalGroup(gl.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(gl.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lb_login)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lb_usuario)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_usuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lb_senha)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_senha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGroup(gl.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lb_login)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb_usuario)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_usuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb_senha)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_senha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
         GroupLayout layout = new GroupLayout(getContentPane());
