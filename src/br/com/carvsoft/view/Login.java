@@ -1,5 +1,6 @@
 package br.com.carvsoft.view;
 
+import br.com.carvsoft.control.LoginControl;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -10,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,6 +23,8 @@ import javax.swing.WindowConstants;
  */
 public class Login extends JFrame {
 
+    
+    private LoginControl control;
     private JButton btn_ok;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -44,12 +46,12 @@ public class Login extends JFrame {
     }
 
     private void btn_okActionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(this, "Logar");
-        dispose();
-        new TelaPrincipal();
+        control.btnOk();
     }
 
     private void initComponents() {
+        control = new LoginControl(this);
+        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1 = new JPanel();
@@ -139,4 +141,12 @@ public class Login extends JFrame {
         );
     }
 
+    public JPasswordField getTxt_senha() {
+        return txt_senha;
+    }
+
+    public JTextField getTxt_usuario() {
+        return txt_usuario;
+    }
+    
 }
