@@ -1,6 +1,7 @@
 package br.com.carvsoft.model.businessObject;
 
 import br.com.carvsoft.model.dataAccessObject.UsuarioDAO;
+import br.com.carvsoft.model.util.Password;
 import br.com.carvsoft.model.valueObject.Usuario;
 import java.sql.SQLException;
 
@@ -9,28 +10,43 @@ import java.sql.SQLException;
  */
 public class LoginRN extends RN {
    
-    private UsuarioDAO uDAO = new UsuarioDAO();
+    private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
     
-    public boolean ValidarSenhaDoUsuario(Usuario u) throws SQLException {
-        Usuario user;
+    public boolean autenticarUsuario(Usuario usuario) throws SQLException, Exception {
+        Usuario usuarioDoBanco;
         try {
             begin();
-            user = uDAO.getElement(connection, u);
-            if (!testarSenha(u, user)) {
-                user = null;
+            usuarioDoBanco = USUARIO_DAO.getElement(connection, usuario);
+            if (usuarioDoBanco == null) {
+                return false;
+            }
+            if (!validarSenha(usuario, usuarioDoBanco)) {
+                return false;
             }
         } catch (SQLException ex) {
+            throw ex;
+        } catch (Exception ex) {
             throw ex;
         } finally {
             end();
         }
-        return user != null;
+        return true;
     }
 
-    private boolean testarSenha(Usuario u, Usuario user) {
-        if (u != null && u.getDs_senha() != null && user != null && user.getDs_senha() != null) {
-            return u.getDs_senha().equals(user.getDs_senha());
+    private boolean validarSenha(Usuario usuario, Usuario usuarioDoBanco) throws Exception {
+        if (usuario == null && usuarioDoBanco == null) {
+            throw new Exception("O usuário informado é nulo!");
         }
-        return false;
+        if (usuario.getDs_senha() == null && usuarioDoBanco.getDs_senha() == null) {
+            throw new Exception("A senha do usuário informado é nula!");
+        }
+        if (usuarioDoBanco.getDs_salt() == null) {
+            throw new Exception("Existe um problema com a senha do usuário, favor contatar o suporte!");
+        }
+        String senha1 = Password.criptografarSenha(usuario.getDs_senha(),
+                usuarioDoBanco.getDs_salt());
+        String senha2 = usuarioDoBanco.getDs_senha();
+        return senha1.equals(senha2);
     }
+    
 }

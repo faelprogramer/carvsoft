@@ -23,7 +23,7 @@ public class LoginControl extends Control {
     public void btnOk() {
         Usuario u = instanciarUsuario();
         try {
-            if (loginRN.ValidarSenhaDoUsuario(u)) {
+            if (loginRN.autenticarUsuario(u)) {
                 login.dispose();
                 new TelaPrincipal();
             } else {
@@ -33,7 +33,7 @@ public class LoginControl extends Control {
                             "A quantidade máxima de tentativas foi superada, o sistema será finalizado!");
                     System.exit(0);
                 }
-                exibirMsgErro(login, "Erro", "Não foi possível realizar a autenticação!");
+                exibirMsgErro(login, "Erro", "Usuário ou senha inválida!");
                 login.getTxt_senha().setText("");
                 login.getTxt_senha().requestFocus();
             }
@@ -41,6 +41,8 @@ public class LoginControl extends Control {
             exibirMsgErro(login, "Erro",
                     "Não foi possível realizar a conexão com o banco de dados, o sistema será finalizado!");
             System.exit(-1);
+        } catch (Exception ex) {
+            exibirMsgErro(login, "Erro", ex.getMessage());
         }
 
     }

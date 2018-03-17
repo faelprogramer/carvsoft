@@ -9,7 +9,8 @@ public class Usuario {
     private PessoaFisica pessoaFisica;
     private Date dt_atualizacao_nrec;
     private Date dt_atualizacao;
-    private Boolean vf_ativo;
+    private boolean vf_ativo;
+    private String ds_salt;
 
     public Usuario() {
     }
@@ -66,7 +67,13 @@ public class Usuario {
     public void setVf_ativo(Boolean vf_ativo) {
         this.vf_ativo = vf_ativo;
     }
-    
-    
+
+    public String getDs_salt() {
+        return ds_salt;
+    }
+
+    public void setDs_salt(String ds_salt) {
+        this.ds_salt = ds_salt;
+    }
     
 }
