@@ -17,11 +17,11 @@ public abstract class DAO<E> {
     protected PreparedStatement pstmt;
     protected Statement stmt;
     protected ResultSet rs;
+    private final String SQL_GET_DATA_ATUAL = "select current_date";
     protected String sql_insert;
     protected String sql_update;
     protected String sql_delete;
     protected String sql_select;
-    private final String SQL_GET_DATA_ATUAL = "select current_date";
     
     public void save(Connection connection, E element) throws SQLException {
         if(!exists(connection, element)) {
