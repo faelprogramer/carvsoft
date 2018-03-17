@@ -3,6 +3,8 @@ package br.com.carvsoft.model.dataAccessObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Carlos Rafael
@@ -21,14 +23,16 @@ public class ConnectionFactory {
         URL = getUrlConnection();
     }
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
+    public Connection getConnection() throws SQLException {
         Connection connection;
         try {    
             Class.forName(DRIVER);
             connection = (Connection) DriverManager.getConnection(URL, USER, PASSWORD);
             connection.setAutoCommit(true);
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             throw ex;
+        } catch (ClassNotFoundException ex) {
+            throw new SQLException("Driver de conexão '" + DRIVER + "' inexistente!");
         }
         return connection;
     }

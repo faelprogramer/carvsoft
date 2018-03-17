@@ -4,35 +4,50 @@ import br.com.carvsoft.model.businessObject.LoginRN;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.view.Login;
 import br.com.carvsoft.view.TelaPrincipal;
-import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 /**
  * @author Carlos Rafael
  */
-public class LoginControl {
+public class LoginControl extends Control {
 
     private Login login;
     private LoginRN loginRN;
-    
+    private int qtErroSenha;
+
     public LoginControl(Login login) {
         this.login = login;
         loginRN = new LoginRN();
     }
-    
+
     public void btnOk() {
-        Usuario u = new Usuario(login.getTxt_usuario().getText(),
-                new String(login.getTxt_senha().getPassword()));
-        if (loginRN.autenticarUsuario(u)){
-            login.dispose();
-            new TelaPrincipal();
-        } else {
-            JOptionPane.showMessageDialog(login,
-                    "Não foi possível realizar a autenticação!",
-                    "Usuário inválido", JOptionPane.ERROR_MESSAGE);
-            login.getTxt_senha().setText("");
-            login.getTxt_senha().requestFocus();
+        Usuario u = instanciarUsuario();
+        try {
+            if (loginRN.ValidarSenhaDoUsuario(u)) {
+                login.dispose();
+                new TelaPrincipal();
+            } else {
+                qtErroSenha++;
+                if (qtErroSenha == 3) {
+                    exibirMsgErro(login, "Erro",
+                            "A quantidade máxima de tentativas foi superada, o sistema será finalizado!");
+                    System.exit(0);
+                }
+                exibirMsgErro(login, "Erro", "Não foi possível realizar a autenticação!");
+                login.getTxt_senha().setText("");
+                login.getTxt_senha().requestFocus();
+            }
+        } catch (SQLException ex) {
+            exibirMsgErro(login, "Erro",
+                    "Não foi possível realizar a conexão com o banco de dados, o sistema será finalizado!");
+            System.exit(-1);
         }
-        
+
     }
-    
+
+    private Usuario instanciarUsuario() {
+        return new Usuario(login.getTxt_usuario().getText(),
+                new String(login.getTxt_senha().getPassword()));
+    }
+
 }

@@ -6,6 +6,9 @@ public class Usuario {
     private String ds_senha;
     private PessoaFisica pessoaFisica;
 
+    public Usuario() {
+    }
+    
     public Usuario(String nm_usuario, String ds_senha) {
         this.nm_usuario = nm_usuario;
         this.ds_senha = ds_senha;
