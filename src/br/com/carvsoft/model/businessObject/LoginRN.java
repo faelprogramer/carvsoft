@@ -16,11 +16,21 @@ public class LoginRN extends RN {
         try {
             begin();
             user = uDAO.getElement(connection, u);
+            if (!testarSenha(u, user)) {
+                user = null;
+            }
         } catch (SQLException ex) {
             throw ex;
         } finally {
             end();
         }
         return user != null;
+    }
+
+    private boolean testarSenha(Usuario u, Usuario user) {
+        if (u != null && u.getDs_senha() != null && user != null && user.getDs_senha() != null) {
+            return u.getDs_senha().equals(user.getDs_senha());
+        }
+        return false;
     }
 }

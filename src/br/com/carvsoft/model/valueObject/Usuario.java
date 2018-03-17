@@ -1,10 +1,15 @@
 package br.com.carvsoft.model.valueObject;
 
+import java.util.Date;
+
 public class Usuario {
     
     private String nm_usuario;
     private String ds_senha;
     private PessoaFisica pessoaFisica;
+    private Date dt_atualizacao_nrec;
+    private Date dt_atualizacao;
+    private Boolean vf_ativo;
 
     public Usuario() {
     }
@@ -37,5 +42,31 @@ public class Usuario {
     public void setPessoaFisica(PessoaFisica pessoaFisica) {
         this.pessoaFisica = pessoaFisica;
     }
+
+    public Date getDt_atualizacao_nrec() {
+        return dt_atualizacao_nrec;
+    }
+
+    public void setDt_atualizacao_nrec(Date dt_atualizacao_nrec) {
+        this.dt_atualizacao_nrec = dt_atualizacao_nrec;
+    }
+
+    public Date getDt_atualizacao() {
+        return dt_atualizacao;
+    }
+
+    public void setDt_atualizacao(Date dt_atualizacao) {
+        this.dt_atualizacao = dt_atualizacao;
+    }
+
+    public Boolean getVf_ativo() {
+        return vf_ativo;
+    }
+
+    public void setVf_ativo(Boolean vf_ativo) {
+        this.vf_ativo = vf_ativo;
+    }
+    
+    
     
 }

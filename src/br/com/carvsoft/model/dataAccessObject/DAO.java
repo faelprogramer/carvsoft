@@ -85,6 +85,10 @@ public abstract class DAO<E> {
         return null;
     }
     
+    protected java.sql.Date DateToSqlDate(java.util.Date dt) {
+        return new java.sql.Date(dt.getTime());
+    }
+    
     protected ResultSet execSelect(Connection connection, String sql) throws SQLException {
         try {
             stmt = connection.createStatement();
@@ -109,14 +113,10 @@ public abstract class DAO<E> {
         }
     }
     
-    protected java.sql.Date getSqlDate(java.util.Date dt) {
-        return new java.sql.Date(dt.getTime());
-    }
     
+    protected abstract void prepararStmtInsert(Connection connection, E element) throws SQLException;
     
-    protected abstract void prepararStmtInsert(E element) throws SQLException;
-    
-    protected abstract void prepararStmtUpdate(E element) throws SQLException;
+    protected abstract void prepararStmtUpdate(Connection connection, E element) throws SQLException;
     
     protected abstract void prepararStmtDelete(E element) throws SQLException;
     
@@ -132,7 +132,7 @@ public abstract class DAO<E> {
     private void insert(Connection connection, E element) throws SQLException {
         try {
             pstmt = connection.prepareStatement(sql_insert);
-            prepararStmtInsert(element);
+            prepararStmtInsert(connection, element);
             pstmt.execute();
         } catch (SQLException ex) {
             throw ex;
@@ -144,7 +144,7 @@ public abstract class DAO<E> {
     private void update(Connection connection, E element) throws SQLException {
         try {
             pstmt = connection.prepareStatement(sql_update);
-            prepararStmtUpdate(element);
+            prepararStmtUpdate(connection, element);
             pstmt.execute();
         } catch (SQLException ex) {
             throw ex;

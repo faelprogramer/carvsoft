@@ -1,6 +1,7 @@
 package br.com.carvsoft.view;
 
 import br.com.carvsoft.control.LoginControl;
+import br.com.carvsoft.view.ui.UpperCaseDocument;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -74,6 +75,7 @@ public class Login extends JFrame {
         lb_usuario.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/user.png")));
 
         txt_usuario.setHorizontalAlignment(JTextField.CENTER);
+        txt_usuario.setDocument(new UpperCaseDocument());
         txt_senha.setHorizontalAlignment(JTextField.CENTER);
 
         lb_senha.setHorizontalAlignment(SwingConstants.CENTER);
