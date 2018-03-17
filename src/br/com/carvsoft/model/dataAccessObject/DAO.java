@@ -22,6 +22,10 @@ public abstract class DAO<E> {
     protected String sql_update;
     protected String sql_delete;
     protected String sql_select;
+
+    public DAO() {
+        configurarSqlDAO();
+    }
     
     public void save(Connection connection, E element) throws SQLException {
         if(!exists(connection, element)) {
@@ -113,17 +117,12 @@ public abstract class DAO<E> {
         }
     }
     
-    
+    protected abstract void configurarSqlDAO();
     protected abstract void prepararStmtInsert(Connection connection, E element) throws SQLException;
-    
     protected abstract void prepararStmtUpdate(Connection connection, E element) throws SQLException;
-    
     protected abstract void prepararStmtDelete(E element) throws SQLException;
-    
     protected abstract void prepararStmtSelectElement(E element) throws SQLException;
-    
     protected abstract E InstantElementFromResultSet() throws SQLException;
-    
     
     private boolean exists(Connection connection, E element) throws SQLException {
         return getElement(connection, element) != null;

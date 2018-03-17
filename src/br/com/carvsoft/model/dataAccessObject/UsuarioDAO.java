@@ -9,8 +9,9 @@ import java.sql.SQLException;
  * @author Carlos Rafael
  */
 public class UsuarioDAO extends DAO<Usuario> {
-
-    public UsuarioDAO() {
+    
+    @Override
+    protected void configurarSqlDAO() {
         sql_insert = "﻿INSERT INTO usuario(nm_usuario, ds_senha, cd_pessoa_fisica, "
                 + "dt_atualizacao_nrec, dt_atualizacao, vf_ativo, ds_salt) "
                 + "VALUES (?,?,?,?,?,?,?);";
@@ -19,8 +20,8 @@ public class UsuarioDAO extends DAO<Usuario> {
                 + "WHERE nm_usuario=?;";
         sql_delete = "DELETE usuario WHERE nm_usuario = ?";
         sql_select = "SELECT * from usuario WHERE nm_usuario = ?";
-    } 
-
+    }
+    
     @Override
     protected void prepararStmtInsert(Connection connection, Usuario u) throws SQLException {
         u.setDt_atualizacao(getDataServer(connection));
