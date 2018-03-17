@@ -37,6 +37,7 @@ public class Login extends JFrame {
     public Login() {
         initComponents();
         setIcone();
+        control = new LoginControl(this);
     }
 
     private void setIcone() {
@@ -50,10 +51,10 @@ public class Login extends JFrame {
     }
 
     private void initComponents() {
-        control = new LoginControl(this);
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        setTitle("Login");
+        
         jPanel1 = new JPanel();
         lb_login = new JLabel();
         lb_usuario = new JLabel();

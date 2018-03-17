@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.WindowConstants;
 
 public class TelaPrincipal extends JFrame {
 
@@ -18,7 +19,8 @@ public class TelaPrincipal extends JFrame {
     
 
     public TelaPrincipal() throws HeadlessException {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CarvSoft");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         borderLayout = new BorderLayout();

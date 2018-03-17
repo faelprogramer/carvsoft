@@ -29,6 +29,8 @@ public class LoginControl {
             JOptionPane.showMessageDialog(login,
                     "Não foi possível realizar a autenticação!",
                     "Usuário inválido", JOptionPane.ERROR_MESSAGE);
+            login.getTxt_senha().setText("");
+            login.getTxt_senha().requestFocus();
         }
         
     }
