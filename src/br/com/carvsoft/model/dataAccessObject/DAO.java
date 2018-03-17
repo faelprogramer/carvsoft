@@ -11,13 +11,14 @@ import java.util.List;
 /**
  *
  * @author Carlos Rafael
+ * @param <E> value Object
  */
 public abstract class DAO<E> {
     
     protected PreparedStatement pstmt;
     protected Statement stmt;
     protected ResultSet rs;
-    private final String SQL_GET_DATA_ATUAL = "select current_date";
+    private final String SQL_GET_DATA_ATUAL = "select now()";
     protected String sql_insert;
     protected String sql_update;
     protected String sql_delete;
