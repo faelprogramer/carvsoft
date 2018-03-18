@@ -42,7 +42,7 @@ public class Login extends JFrame {
     }
 
     private void setIcone() {
-        URL url = this.getClass().getResource("/br/com/carvsoft/model/resources/app.png");
+        URL url = this.getClass().getResource("/br/com/carvsoft/view/resources/app.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);
         setIconImage(iconeTitulo);
     }
@@ -69,19 +69,19 @@ public class Login extends JFrame {
         jPanel2.setBackground(jPanel1.getBackground());
 
         lb_login.setHorizontalAlignment(SwingConstants.CENTER);
-        lb_login.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/login.png")));
+        lb_login.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/view/resources/login/login.png")));
 
         lb_usuario.setHorizontalAlignment(SwingConstants.CENTER);
-        lb_usuario.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/user.png")));
+        lb_usuario.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/view/resources/login/user.png")));
 
         txt_usuario.setHorizontalAlignment(JTextField.CENTER);
         txt_usuario.setDocument(new UpperCaseDocument());
         txt_senha.setHorizontalAlignment(JTextField.CENTER);
 
         lb_senha.setHorizontalAlignment(SwingConstants.CENTER);
-        lb_senha.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/password.png")));
+        lb_senha.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/view/resources/login/password.png")));
 
-        btn_ok.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/model/resources/login/ok.png")));
+        btn_ok.setIcon(new ImageIcon(getClass().getResource("/br/com/carvsoft/view/resources/login/ok.png")));
         btn_ok.addActionListener((ActionEvent evt) -> {
             btn_okActionPerformed(evt);
         });
