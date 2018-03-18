@@ -54,7 +54,7 @@ public abstract class DAO<E> {
             prepararStmtSelectElement(element);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                return InstantElementFromResultSet();
+                return InstantElementFromResultSet(connection);
             }
         } catch (SQLException ex) {
             throw ex;
@@ -69,7 +69,7 @@ public abstract class DAO<E> {
         List<E> elements = new ArrayList<>();
         rs = execSelect(connection, sql);
         while (rs.next()) {            
-            elements.add(InstantElementFromResultSet());
+            elements.add(InstantElementFromResultSet(connection));
         }
         return elements;
     }
@@ -123,7 +123,7 @@ public abstract class DAO<E> {
     protected abstract void prepararStmtUpdate(Connection connection, E element) throws SQLException;
     protected abstract void prepararStmtDelete(E element) throws SQLException;
     protected abstract void prepararStmtSelectElement(E element) throws SQLException;
-    protected abstract E InstantElementFromResultSet() throws SQLException;
+    protected abstract E InstantElementFromResultSet(Connection connection) throws SQLException;
     
     private boolean exists(Connection connection, E element) throws SQLException {
         return getElement(connection, element) != null;
