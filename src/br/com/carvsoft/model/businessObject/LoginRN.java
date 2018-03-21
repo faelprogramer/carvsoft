@@ -3,50 +3,60 @@ package br.com.carvsoft.model.businessObject;
 import br.com.carvsoft.model.dataAccessObject.UsuarioDAO;
 import br.com.carvsoft.model.util.Password;
 import br.com.carvsoft.model.valueObject.Usuario;
+import br.com.carvsoft.model.valueObject.exceptions.AttemptExceededException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import javax.naming.AuthenticationException;
 
 /**
  * @author Carlos Rafael
  */
 public class LoginRN extends RN {
-   
+
     private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
-    
-    public boolean verificarAutenticidadeUsuario(Usuario usuario) throws SQLException, Exception {
+    private int qtErroAutenticacao = 0;
+
+    private boolean validarSenha(Usuario usuario, Usuario usuarioDoBanco) throws AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        if (usuario == null) {
+            throw new AuthenticationException("O usuário informado é inválido!");
+        }
+        if (usuario.getDs_senha() == null || usuario.getDs_senha().isEmpty()) {
+            throw new AuthenticationException("A senha do usuário informado não pode estar vazia!");
+        }
+        if (usuarioDoBanco == null) {
+            return false;
+        }
+        if (usuarioDoBanco.getVf_ativo()) {
+            throw new AuthenticationException("Usuário inativo!");
+        }
+        String senhaDigitada = Password.criptografarSenha(usuario.getDs_senha(),
+                usuarioDoBanco.getDs_salt());
+        return senhaDigitada.equals(usuarioDoBanco.getDs_senha());
+    }
+
+    public boolean verificarAutenticidadeUsuario(Usuario usuario) throws SQLException, AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException, AttemptExceededException {
         Usuario usuarioDoBanco;
+        if (qtErroAutenticacao > 2) {
+            throw new AttemptExceededException();
+        }
         try {
             begin();
             usuarioDoBanco = USUARIO_DAO.getElement(connection, usuario);
-            if (usuarioDoBanco == null) {
-                return false;
-            }
             if (!validarSenha(usuario, usuarioDoBanco)) {
+                qtErroAutenticacao++;
                 return false;
             }
-        } catch (SQLException ex) {
-            throw ex;
-        } catch (Exception ex) {
+            return true;
+        } catch (SQLException | AuthenticationException | NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             throw ex;
         } finally {
             end();
         }
-        return true;
-    }
-
-    private boolean validarSenha(Usuario usuario, Usuario usuarioDoBanco) throws Exception {
-        if (usuario == null && usuarioDoBanco == null) {
-            throw new Exception("O usuário informado é nulo!");
-        }
-        if (usuario.getDs_senha() == null && usuarioDoBanco.getDs_senha() == null) {
-            throw new Exception("A senha do usuário informado é nula!");
-        }
-        if (usuarioDoBanco.getDs_salt() == null) {
-            throw new Exception("Existe um problema com a senha do usuário, favor contatar o suporte!");
-        }
-        String senha1 = Password.criptografarSenha(usuario.getDs_senha(),
-                usuarioDoBanco.getDs_salt());
-        String senha2 = usuarioDoBanco.getDs_senha();
-        return senha1.equals(senha2);
     }
     
+    public int getQtErroAutenticacao() {
+        return qtErroAutenticacao;
+    }
+
 }

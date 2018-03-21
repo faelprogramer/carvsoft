@@ -11,10 +11,9 @@ import java.sql.SQLException;
 public abstract class RN {
     
     protected Connection connection;
-    private ConnectionFactory cf = new ConnectionFactory();
     
     protected void begin() throws SQLException{
-        connection = cf.getConnection();
+        connection = ConnectionFactory.getConnection();
         connection.setAutoCommit(true);
     }
     
@@ -23,7 +22,7 @@ public abstract class RN {
     }
     
     protected void beginTransaction() throws SQLException {
-        connection = cf.getConnection();
+        connection = ConnectionFactory.getConnection();
         connection.setAutoCommit(false);
     }
     

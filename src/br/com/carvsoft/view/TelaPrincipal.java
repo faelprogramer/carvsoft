@@ -12,10 +12,10 @@ import javax.swing.WindowConstants;
 
 public class TelaPrincipal extends JFrame {
 
-    private BorderLayout borderLayout;
-    private Container pane;
-    private JMenuBar menuBar;
-    private JMenu jMenu_arquivo;
+    private final BorderLayout borderLayout;
+    private final Container pane;
+    private final JMenuBar menuBar;
+    private final JMenu jMenu_arquivo;
     
 
     public TelaPrincipal() throws HeadlessException {

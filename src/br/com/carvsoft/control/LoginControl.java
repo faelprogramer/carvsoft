@@ -3,19 +3,21 @@ package br.com.carvsoft.control;
 import br.com.carvsoft.model.businessObject.LoginRN;
 import br.com.carvsoft.model.valueObject.EnumTipoMensagem;
 import br.com.carvsoft.model.valueObject.Usuario;
+import br.com.carvsoft.model.valueObject.exceptions.AttemptExceededException;
 import br.com.carvsoft.view.Login;
 import br.com.carvsoft.view.TelaPrincipal;
-import br.com.carvsoft.view.ui.PainelDeOpcoes;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import javax.naming.AuthenticationException;
 
 /**
  * @author Carlos Rafael
  */
 public class LoginControl extends Control {
 
-    private Login login;
-    private LoginRN loginRN;
-    private int qtErroSenha;
+    private final Login login;
+    private final LoginRN loginRN;
 
     public LoginControl(Login login) {
         this.login = login;
@@ -23,32 +25,17 @@ public class LoginControl extends Control {
     }
 
     public void btnOk() {
-        Usuario u = instanciarUsuario();
         try {
-            if (loginRN.verificarAutenticidadeUsuario(u)) {
+            if (loginRN.verificarAutenticidadeUsuario(instanciarUsuario())) {
                 login.dispose();
                 new TelaPrincipal();
-            } else {
-                qtErroSenha++;
-                if (qtErroSenha == 3) {
-                    exibirMsg(login, "Erro",
-                            "A quantidade máxima de tentativas foi superada, o sistema será finalizado!",
-                            EnumTipoMensagem.ALERTA, null);
-                    System.exit(0);
-                }
-                exibirMsg(login, "Erro", "Usuário ou senha inválida!", EnumTipoMensagem.ALERTA, null);
-                login.getTxt_senha().setText("");
-                login.getTxt_senha().requestFocus();
             }
-        } catch (SQLException ex) {
-            exibirMsg(login, "Erro",
-                    "Não foi possível realizar a conexão com o banco de dados, o sistema será finalizado!",
-                    EnumTipoMensagem.ERRO, ex);
-            System.exit(-1);
-        } catch (Exception ex) {
+        } catch (SQLException | AuthenticationException | NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             exibirMsg(login, "Erro", ex.getMessage(), EnumTipoMensagem.ERRO, ex);
+        } catch (AttemptExceededException ex) {
+            exibirMsg(login, null, ex.getMessage(), EnumTipoMensagem.ERRO, ex);
+            System.exit(1);
         }
-
     }
 
     private Usuario instanciarUsuario() {
