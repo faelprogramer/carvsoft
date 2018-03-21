@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Funcao {
     
-    private int nr_sequencia;
+    private int cd_funcao;
     private String ds_funcao;
     private String ds_observacao;
     private Date dt_criacao;

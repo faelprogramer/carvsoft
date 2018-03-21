@@ -23,7 +23,7 @@ public class LoginControl extends Control {
     public void btnOk() {
         Usuario u = instanciarUsuario();
         try {
-            if (loginRN.autenticarUsuario(u)) {
+            if (loginRN.verificarAutenticidadeUsuario(u)) {
                 login.dispose();
                 new TelaPrincipal();
             } else {

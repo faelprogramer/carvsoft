@@ -12,7 +12,7 @@ public class LoginRN extends RN {
    
     private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
     
-    public boolean autenticarUsuario(Usuario usuario) throws SQLException, Exception {
+    public boolean verificarAutenticidadeUsuario(Usuario usuario) throws SQLException, Exception {
         Usuario usuarioDoBanco;
         try {
             begin();
