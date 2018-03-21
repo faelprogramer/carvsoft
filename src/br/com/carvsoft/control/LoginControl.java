@@ -1,9 +1,11 @@
 package br.com.carvsoft.control;
 
 import br.com.carvsoft.model.businessObject.LoginRN;
+import br.com.carvsoft.model.valueObject.EnumTipoMensagem;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.view.Login;
 import br.com.carvsoft.view.TelaPrincipal;
+import br.com.carvsoft.view.ui.PainelDeOpcoes;
 import java.sql.SQLException;
 
 /**
@@ -29,20 +31,22 @@ public class LoginControl extends Control {
             } else {
                 qtErroSenha++;
                 if (qtErroSenha == 3) {
-                    exibirMsgErro(login, "Erro",
-                            "A quantidade máxima de tentativas foi superada, o sistema será finalizado!");
+                    exibirMsg(login, "Erro",
+                            "A quantidade máxima de tentativas foi superada, o sistema será finalizado!",
+                            EnumTipoMensagem.ALERTA, null);
                     System.exit(0);
                 }
-                exibirMsgErro(login, "Erro", "Usuário ou senha inválida!");
+                exibirMsg(login, "Erro", "Usuário ou senha inválida!", EnumTipoMensagem.ALERTA, null);
                 login.getTxt_senha().setText("");
                 login.getTxt_senha().requestFocus();
             }
         } catch (SQLException ex) {
-            exibirMsgErro(login, "Erro",
-                    "Não foi possível realizar a conexão com o banco de dados, o sistema será finalizado!");
+            exibirMsg(login, "Erro",
+                    "Não foi possível realizar a conexão com o banco de dados, o sistema será finalizado!",
+                    EnumTipoMensagem.ERRO, ex);
             System.exit(-1);
         } catch (Exception ex) {
-            exibirMsgErro(login, "Erro", ex.getMessage());
+            exibirMsg(login, "Erro", ex.getMessage(), EnumTipoMensagem.ERRO, ex);
         }
 
     }

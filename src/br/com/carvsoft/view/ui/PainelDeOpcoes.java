@@ -13,15 +13,15 @@ import javax.swing.JOptionPane;
 
 public class PainelDeOpcoes {
 
-    public void exibirMsg(Component componente, String titulo, String msg, EnumTipoMensagem tipo_mensagem) {
+    public static void exibirMsg(Component componente, String titulo, String msg, EnumTipoMensagem tipo_mensagem) {
         tratarParaExibicao(componente, titulo, msg, tipo_mensagem, null);
     }
     
-    public void exibirMsg(Component componente, String msg, String titulo, EnumTipoMensagem tipo_mensagem, Exception ex) {
+    public static void exibirMsg(Component componente, String msg, String titulo, EnumTipoMensagem tipo_mensagem, Exception ex) {
         tratarParaExibicao(componente, titulo, msg, tipo_mensagem, ex);
     }
 
-    private void tratarParaExibicao(Component componente, String titulo, String msg, EnumTipoMensagem tipo_mensagem, Exception ex) throws HeadlessException {
+    private static void tratarParaExibicao(Component componente, String titulo, String msg, EnumTipoMensagem tipo_mensagem, Exception ex) throws HeadlessException {
         int ie_tipo_mensagem;
         switch (tipo_mensagem) {
             case INFORMACAO:

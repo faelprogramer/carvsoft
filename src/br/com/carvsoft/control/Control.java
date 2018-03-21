@@ -1,7 +1,8 @@
 package br.com.carvsoft.control;
 
+import br.com.carvsoft.model.valueObject.EnumTipoMensagem;
+import br.com.carvsoft.view.ui.PainelDeOpcoes;
 import java.awt.Component;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -9,8 +10,8 @@ import javax.swing.JOptionPane;
  */
 public abstract class Control {
 
-    protected void exibirMsgErro(Component parentComponent, String titulo, String msg) {
-        JOptionPane.showMessageDialog(parentComponent, msg, titulo, JOptionPane.ERROR_MESSAGE);
+    protected void exibirMsg(Component parentComponent, String titulo, String msg, EnumTipoMensagem enum_tipo_mensagem, Exception ex) {
+        PainelDeOpcoes.exibirMsg(parentComponent, titulo, msg, enum_tipo_mensagem, ex);
     }
     
 }
