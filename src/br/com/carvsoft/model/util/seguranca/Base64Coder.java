@@ -1,49 +1,50 @@
-package br.com.carvsoft.model.util.seguranca.base64;
+package br.com.carvsoft.model.util.seguranca;
 
 public class Base64Coder {
 
     public static void main(String[] args) {
         System.out.println(encodeString("teste"));
     }
-    private static final String systemLineSeparator = System.getProperty("line.separator");
+    
+    private static final String SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator");
 
-    private static char[] map1 = new char[64];
-    private static byte[] map2;
+    private static final char[] MAP_1 = new char[64];
+    private static final byte[] MAP_2;
 
     static {
         int i = 0;
         for (char c = 'A'; c <= 'Z'; c = (char) (c + '\001')) {
-            map1[(i++)] = c;
+            MAP_1[(i++)] = c;
         }
         for (char c = 'a'; c <= 'z'; c = (char) (c + '\001')) {
-            map1[(i++)] = c;
+            MAP_1[(i++)] = c;
         }
         for (char c = '0'; c <= '9'; c = (char) (c + '\001')) {
-            map1[(i++)] = c;
+            MAP_1[(i++)] = c;
         }
-        map1[(i++)] = '+';
-        map1[(i++)] = '/';
+        MAP_1[(i++)] = '+';
+        MAP_1[(i++)] = '/';
 
-        map2 = new byte[''];
+        MAP_2 = new byte[''];
 
-        for (int j = 0; j < map1.length; j++) {
-            map2[j] = -1;
+        for (int j = 0; j < MAP_1.length; j++) {
+            MAP_2[j] = -1;
 
         }
         for (int j = 0; j < 64; j++) {
-            map2[map1[j]] = ((byte) j);
+            MAP_2[MAP_1[j]] = ((byte) j);
         }
     }
 
-    public static String encodeString(String s) /*     */ {
+    public static String encodeString(String s) {
         return new String(encode(s.getBytes())).replace("\r", "").replace("\n", "");
     }
 
-    public static String encodeLines(byte[] in) /*     */ {
-        return encodeLines(in, 0, in.length, 76, systemLineSeparator);
+    public static String encodeLines(byte[] in) {
+        return encodeLines(in, 0, in.length, 76, SYSTEM_LINE_SEPARATOR);
     }
 
-    public static String encodeLines(byte[] in, int iOff, int iLen, int lineLen, String lineSeparator) /*     */ {
+    public static String encodeLines(byte[] in, int iOff, int iLen, int lineLen, String lineSeparator) {
         int blockLen = lineLen * 3 / 4;
         if (blockLen <= 0) {
             throw new IllegalArgumentException();
@@ -69,7 +70,7 @@ public class Base64Coder {
         return encode(in, 0, iLen);
     }
 
-    public static char[] encode(byte[] in, int iOff, int iLen) /*     */ {
+    public static char[] encode(byte[] in, int iOff, int iLen) {
         int oDataLen = (iLen * 4 + 2) / 3;
         int oLen = (iLen + 2) / 3 * 4;
         char[] out = new char[oLen];
@@ -84,11 +85,11 @@ public class Base64Coder {
             int o1 = (i0 & 0x3) << 4 | i1 >>> 4;
             int o2 = (i1 & 0xF) << 2 | i2 >>> 6;
             int o3 = i2 & 0x3F;
-            out[(op++)] = map1[o0];
-            out[(op++)] = map1[o1];
-            out[op] = (op < oDataLen ? map1[o2] : '=');
+            out[(op++)] = MAP_1[o0];
+            out[(op++)] = MAP_1[o1];
+            out[op] = (op < oDataLen ? MAP_1[o2] : '=');
             op++;
-            out[op] = (op < oDataLen ? map1[o3] : '=');
+            out[op] = (op < oDataLen ? MAP_1[o3] : '=');
             op++;
         }
         return out;
@@ -118,7 +119,7 @@ public class Base64Coder {
         return decode(in, 0, in.length);
     }
 
-    public static byte[] decode(char[] in, int iOff, int iLen) /*     */ {
+    public static byte[] decode(char[] in, int iOff, int iLen) {
         if (iLen % 4 != 0) {
             throw new IllegalArgumentException("Length of Base64 encoded input string is not a multiple of 4.");
         }
@@ -138,10 +139,10 @@ public class Base64Coder {
             if ((i0 > 127) || (i1 > 127) || (i2 > 127) || (i3 > 127)) {
                 throw new IllegalArgumentException("Illegal character in Base64 encoded data.");
             }
-            int b0 = map2[i0];
-            int b1 = map2[i1];
-            int b2 = map2[i2];
-            int b3 = map2[i3];
+            int b0 = MAP_2[i0];
+            int b1 = MAP_2[i1];
+            int b2 = MAP_2[i2];
+            int b3 = MAP_2[i3];
             if ((b0 < 0) || (b1 < 0) || (b2 < 0) || (b3 < 0)) {
                 throw new IllegalArgumentException("Illegal character in Base64 encoded data.");
             }
