@@ -15,7 +15,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-public class WhebCriptografiaRSA {
+public class MyCriptografiaRSA {
 
     private static Cipher cipher;
     private static final String ALGORITMO = "RSA";

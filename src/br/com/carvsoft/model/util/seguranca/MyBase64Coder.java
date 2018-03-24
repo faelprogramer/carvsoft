@@ -1,6 +1,6 @@
 package br.com.carvsoft.model.util.seguranca;
 
-public class Base64Coder {
+public class MyBase64Coder {
 
     public static void main(String[] args) {
         System.out.println(encodeString("teste"));

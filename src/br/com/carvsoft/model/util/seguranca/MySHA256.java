@@ -3,7 +3,7 @@ package br.com.carvsoft.model.util.seguranca;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class PhilipsSHA256 {
+public class MySHA256 {
 
     public static String gerarHash(String frase) {
         try {

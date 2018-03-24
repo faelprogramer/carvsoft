@@ -11,7 +11,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class WhebCriptografiaAES {
+public class MyCriptografiaAES {
 
     private static Cipher cipher;
 
@@ -57,7 +57,7 @@ public class WhebCriptografiaAES {
 
     public static void main(String[] args)
             throws Exception {
-        WhebCriptografiaAES a = new WhebCriptografiaAES();
+        MyCriptografiaAES a = new MyCriptografiaAES();
         System.out.println(gerarChave(128));
         System.out.println(criptografa("2ab6ddbacd6cbd04d73747ba27881c4d", "Luis Fernando Coelho"));
         System.out.println(descriptografa("2ab6ddbacd6cbd04d73747ba27881c4d", "4205120ec13138dc7ef0e016a701012e7f46a393ebaf7a7fcda58ba0ebde8341"));

@@ -11,7 +11,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-public class WhebCriptografia {
+public class MyCriptografia {
 
     private static Cipher cipher;
 

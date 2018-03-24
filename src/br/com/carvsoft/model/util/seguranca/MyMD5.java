@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class WhebMD5 {
+public class MyMD5 {
 
     public static String gerarHash(String conteudo, String charset) {
         String wdgs = null;

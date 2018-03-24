@@ -23,19 +23,19 @@ public class ValidaSenha {
     }
 
     public static String converteSenhaHash(String senha) {
-        return WhebMD5.gerarHash(senha.toUpperCase()).toUpperCase();
+        return MyMD5.gerarHash(senha.toUpperCase()).toUpperCase();
     }
 
     public static String converteSenhaHashCaseSensetive(String senha) {
-        return WhebMD5.gerarHash(senha);
+        return MyMD5.gerarHash(senha);
     }
 
     public static String converteSenhaHashSHA1(String senha) {
-        return WhebSHA1.gerarHash(senha.toUpperCase()).toUpperCase();
+        return MySHA1.gerarHash(senha.toUpperCase()).toUpperCase();
     }
 
     public static String converteSenhaHashSHA1CaseSensetive(String senha) {
-        return WhebSHA1.gerarHash(senha);
+        return MySHA1.gerarHash(senha);
     }
 
     public static String converteSenhaHashSHA256(String senha, String dsTec) {
@@ -44,7 +44,7 @@ public class ValidaSenha {
         if (dsTec != null) {
             senha = senha + dsTec;
         }
-        return PhilipsSHA256.gerarHash(senha).toUpperCase();
+        return MySHA256.gerarHash(senha).toUpperCase();
     }
 
     public static boolean verificaSenha(String senhaOrigem, String senhaCriptografada) {
@@ -63,11 +63,11 @@ public class ValidaSenha {
 
         switch (senhaCriptografada.length()) {
             case 32:
-                return senhaCriptografada.equalsIgnoreCase(WhebMD5.gerarHash(senhaOrigem));
+                return senhaCriptografada.equalsIgnoreCase(MyMD5.gerarHash(senhaOrigem));
             case 40:
-                return senhaCriptografada.equalsIgnoreCase(WhebSHA1.gerarHash(senhaOrigem));
+                return senhaCriptografada.equalsIgnoreCase(MySHA1.gerarHash(senhaOrigem));
             case 64:
-                return senhaCriptografada.equalsIgnoreCase(PhilipsSHA256.gerarHash(senhaOrigem));
+                return senhaCriptografada.equalsIgnoreCase(MySHA256.gerarHash(senhaOrigem));
         }
         return false;
     }

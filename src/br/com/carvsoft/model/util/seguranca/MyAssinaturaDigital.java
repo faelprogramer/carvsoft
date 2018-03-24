@@ -3,7 +3,7 @@ package br.com.carvsoft.model.util.seguranca;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class WhebAssinaturaDigital {
+public class MyAssinaturaDigital {
 
     public static String geraHash(String texto) {
         String sign = texto;
