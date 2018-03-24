@@ -1,9 +1,10 @@
-package br.com.carvsoft.view.ui;
+package br.com.carvsoft.view.ui.componentes;
 
 /**
  *
  * @author Carlos Rafael
  */
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
@@ -45,7 +46,8 @@ public class CustomErrorDialog {
         textPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         final JScrollPane scrollPane = new JScrollPane(textPane);
-        scrollPane.setAlignmentX(0);
+        scrollPane.setPreferredSize(new Dimension(200, 200));
+        scrollPane.setAlignmentX(Component.TOP_ALIGNMENT);
 
         final JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
@@ -57,10 +59,10 @@ public class CustomErrorDialog {
 
         JLabel message = new JLabel(msg);
         message.setBorder(new EmptyBorder(10, 10, 10, 10));
-        message.setAlignmentX(0);
-        Dimension labelSize = message.getPreferredSize();
-        labelSize.setSize(300, labelSize.height);
-        message.setPreferredSize(labelSize);
+        message.setAlignmentX(Component.TOP_ALIGNMENT);
+        //Dimension labelSize = message.getPreferredSize();
+        //labelSize.setSize(300, labelSize.height);
+        //message.setPreferredSize(labelSize);
         content.add(message);
 
         JCheckBox cb = new JCheckBox(new AbstractAction() {

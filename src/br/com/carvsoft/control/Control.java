@@ -1,7 +1,7 @@
 package br.com.carvsoft.control;
 
 import br.com.carvsoft.model.valueObject.EnumTipoMensagem;
-import br.com.carvsoft.view.ui.CustomErrorDialog;
+import br.com.carvsoft.view.ui.componentes.CustomErrorDialog;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
