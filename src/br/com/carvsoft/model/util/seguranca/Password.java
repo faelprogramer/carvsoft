@@ -1,4 +1,4 @@
-package br.com.carvsoft.model.util;
+package br.com.carvsoft.model.util.seguranca;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

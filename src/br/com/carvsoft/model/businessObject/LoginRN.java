@@ -1,7 +1,7 @@
 package br.com.carvsoft.model.businessObject;
 
 import br.com.carvsoft.model.dataAccessObject.UsuarioDAO;
-import br.com.carvsoft.model.util.Password;
+import br.com.carvsoft.model.util.seguranca.Password;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.model.valueObject.exceptions.AttemptExceededException;
 import java.io.UnsupportedEncodingException;
