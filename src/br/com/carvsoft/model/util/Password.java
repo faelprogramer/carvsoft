@@ -33,17 +33,6 @@ public abstract class Password {
         return criptografarSenha(s);
     }
 
-    private static String misturarPasswordComSalt(char[] password, char[] salt) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < password.length; i++) {
-            sb.append(password[i]);
-            if (salt.length > i) {
-                sb.append(salt[i]);
-            }
-        }
-        return sb.toString();
-    }
-
     public static String criptografarSenha(char[] password) throws NoSuchAlgorithmException,
             UnsupportedEncodingException {
         return Password.criptografarSenha(new String(password));
@@ -56,6 +45,17 @@ public abstract class Password {
         for (int i = 0; i < qt_caracteres; i++) {
             int ch = rand.nextInt(letras.length);
             sb.append(letras[ch]);
+        }
+        return sb.toString();
+    }
+    
+    private static String misturarPasswordComSalt(char[] password, char[] salt) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < password.length; i++) {
+            sb.append(password[i]);
+            if (salt.length > i) {
+                sb.append(salt[i]);
+            }
         }
         return sb.toString();
     }
