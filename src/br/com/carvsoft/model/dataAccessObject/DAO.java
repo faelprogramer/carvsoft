@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Carlos Rafael
- * @param <E> value Object
  */
 public abstract class DAO<E> {
     
@@ -23,9 +21,20 @@ public abstract class DAO<E> {
     protected String sql_update;
     protected String sql_delete;
     protected String sql_select;
-
+    protected String sql_next_sequence;
+    
     public DAO() {
         configurarSqlDAO();
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="getNextSequence(), save(), delete(), getElement(), getElements(), getDataServer()">
+    public Integer getNextSequence(Connection connection) throws SQLException {
+        execSelect(connection, sql_next_sequence);
+        Integer value = null;
+        if (rs.next()) {
+            value = rs.getInt(1);
+        }
+        return value;
     }
     
     public void save(Connection connection, E element) throws SQLException {
@@ -89,6 +98,7 @@ public abstract class DAO<E> {
         }
         return null;
     }
+    //</editor-fold>
     
     protected java.sql.Date DateToSqlDate(java.util.Date dt) {
         return new java.sql.Date(dt.getTime());

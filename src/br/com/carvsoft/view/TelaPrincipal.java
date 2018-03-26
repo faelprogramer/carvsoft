@@ -1,6 +1,7 @@
 package br.com.carvsoft.view;
 
 
+import br.com.carvsoft.model.valueObject.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.HeadlessException;
@@ -16,9 +17,11 @@ public class TelaPrincipal extends JFrame {
     private final Container pane;
     private final JMenuBar menuBar;
     private final JMenu jMenu_arquivo;
+    private final Usuario usuarioLogado;
     
 
-    public TelaPrincipal() throws HeadlessException {
+    public TelaPrincipal(Usuario u) throws HeadlessException {
+        usuarioLogado = u;
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("CarvSoft");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);

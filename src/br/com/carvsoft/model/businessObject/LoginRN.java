@@ -1,7 +1,6 @@
 package br.com.carvsoft.model.businessObject;
 
 import br.com.carvsoft.model.dataAccessObject.UsuarioDAO;
-import br.com.carvsoft.model.util.seguranca.Password;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.model.valueObject.exceptions.AttemptExceededException;
 import java.io.UnsupportedEncodingException;
@@ -17,25 +16,32 @@ public class LoginRN extends RN {
     private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
     private int qtErroAutenticacao = 0;
 
-    private boolean validarSenha(Usuario usuario, Usuario usuarioDoBanco) throws AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    private boolean validarUsuario(Usuario usuario, Usuario usuarioDoBanco) throws AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException {
         if (usuario == null) {
-            throw new AuthenticationException("O usuário informado é inválido!");
+            qtErroAutenticacao++;
+            throw new AuthenticationException("Usuário informado inválido!");
         }
         if (usuario.getDs_senha() == null || usuario.getDs_senha().isEmpty()) {
+            qtErroAutenticacao++;
             throw new AuthenticationException("A senha do usuário informado não pode estar vazia!");
         }
         if (usuarioDoBanco == null) {
-            return false;
+            qtErroAutenticacao++;
+            throw new AuthenticationException("Usuário não encontrado!");
         }
-        if (usuarioDoBanco.getVf_ativo()) {
+        if (!usuarioDoBanco.getVf_ativo()) {
+            qtErroAutenticacao++;
             throw new AuthenticationException("Usuário inativo!");
         }
-        String senhaDigitada = Password.criptografarSenha(usuario.getDs_senha(),
-                usuarioDoBanco.getDs_salt());
-        return senhaDigitada.equals(usuarioDoBanco.getDs_senha());
+        if (usuarioDoBanco.validarSenha(usuario.getDs_senha())) {
+            return true;
+        } else {
+            qtErroAutenticacao++;
+            throw new AuthenticationException("Senha inválida!");
+        }
     }
 
-    public boolean verificarAutenticidadeUsuario(Usuario usuario) throws SQLException, AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException, AttemptExceededException {
+    public Usuario autenticar(Usuario usuario) throws SQLException, AuthenticationException, NoSuchAlgorithmException, UnsupportedEncodingException, AttemptExceededException {
         Usuario usuarioDoBanco;
         if (qtErroAutenticacao > 2) {
             throw new AttemptExceededException();
@@ -43,20 +49,15 @@ public class LoginRN extends RN {
         try {
             begin();
             usuarioDoBanco = USUARIO_DAO.getElement(connection, usuario);
-            if (!validarSenha(usuario, usuarioDoBanco)) {
-                qtErroAutenticacao++;
-                return false;
+            if (validarUsuario(usuario, usuarioDoBanco) == true) {
+                return usuarioDoBanco;
             }
-            return true;
+            return null;
         } catch (SQLException | AuthenticationException | NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             throw ex;
         } finally {
             end();
         }
-    }
-    
-    public int getQtErroAutenticacao() {
-        return qtErroAutenticacao;
     }
 
 }

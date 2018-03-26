@@ -12,7 +12,7 @@ public class MainApp implements Runnable {
     public static void main(String[] args) {
         new MainApp().run();
     }
-    
+
     @Override
     public void run() {
         WebLookAndFeel.install();

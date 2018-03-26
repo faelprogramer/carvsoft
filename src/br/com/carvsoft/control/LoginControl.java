@@ -26,15 +26,16 @@ public class LoginControl extends Control {
 
     public void btnOk() {
         try {
-            if (loginRN.verificarAutenticidadeUsuario(instanciarUsuario())) {
+            Usuario u = loginRN.autenticar(instanciarUsuario());
+            if (u != null) {
                 login.dispose();
-                new TelaPrincipal();
+                TelaPrincipal telaPrincipal = new TelaPrincipal(u);
             }
         } catch (SQLException | AuthenticationException | NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             exibirMsg(login, "Erro", ex.getMessage(), EnumTipoMensagem.ERRO, ex);
         } catch (AttemptExceededException ex) {
             exibirMsg(login, null, ex.getMessage(), EnumTipoMensagem.ERRO, ex);
-            System.exit(1);
+            System.exit(0);
         }
     }
 

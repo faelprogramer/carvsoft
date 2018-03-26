@@ -1,10 +1,12 @@
 package br.com.carvsoft.model.dataAccessObject;
 
+import br.com.carvsoft.model.valueObject.Perfil;
 import br.com.carvsoft.model.valueObject.PessoaFisica;
 import br.com.carvsoft.model.valueObject.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -13,7 +15,8 @@ import java.sql.SQLException;
 public class UsuarioDAO extends DAO<Usuario> {
 
     private final PessoaFisicaDAO PF_DAO = new PessoaFisicaDAO();
-
+    private final PerfilDAO PERFIL_DAO = new PerfilDAO();
+    
     @Override
     protected void configurarSqlDAO() {
         sql_insert = "INSERT INTO usuario(nm_usuario,ds_senha,cd_pessoa_fisica,"
@@ -62,15 +65,19 @@ public class UsuarioDAO extends DAO<Usuario> {
     @Override
     protected Usuario InstantElementFromResultSet(Connection connection) throws SQLException {
         Usuario u = new Usuario();
-        PessoaFisica p = PF_DAO.getElement(connection, new PessoaFisica(rs.getInt("cd_pessoa_fisica")));
         
         u.setNm_usuario(rs.getString("nm_usuario"));
         u.setDs_senha(rs.getString("ds_senha"));
+        PessoaFisica p = PF_DAO.getElement(connection, new PessoaFisica(rs.getInt("cd_pessoa_fisica")));
         u.setPessoaFisica(p);
         u.setDt_atualizacao(rs.getDate("dt_atualizacao"));
         u.setDt_atualizacao_nrec(rs.getDate("dt_atualizacao_nrec"));
         u.setVf_ativo(rs.getBoolean("vf_ativo"));
         u.setDs_salt(rs.getString("ds_salt"));
+        List<Perfil> perfis = PERFIL_DAO.getElements(connection,
+                "select b.* from usuario_perfil a join perfil b on a.cd_perfil = b.cd_perfil where a.nm_usuario = "
+                        + u.getNm_usuario());
+        u.setPerfis(perfis);
         return u;
     }
 

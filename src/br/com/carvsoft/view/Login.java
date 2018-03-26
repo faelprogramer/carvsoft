@@ -24,8 +24,7 @@ import javax.swing.WindowConstants;
  */
 public class Login extends JFrame {
 
-    
-    private LoginControl control;
+    private final LoginControl control;
     private JButton btn_ok;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -54,6 +53,7 @@ public class Login extends JFrame {
     private void initComponents() {
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setTitle("Login");
         
         jPanel1 = new JPanel();

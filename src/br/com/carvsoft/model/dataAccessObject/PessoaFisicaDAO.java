@@ -13,6 +13,7 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica>{
 
     @Override
     protected void configurarSqlDAO() {
+        sql_next_sequence = "select nextval('pessoa_fisica_seq')";
         sql_select = "select * from pessoa_fisica where cd_pessoa_fisica=?";
         sql_insert = "INSERT INTO pessoa_fisica(cd_pessoa_fisica,nm_pessoa_fisica,dt_nascimento,ds_telefone,"
                 + "ds_celular,dt_atualizacao_nrec,dt_atualizacao,nr_compra_fidelidade,ds_endereco,nr_endereco,"
@@ -47,12 +48,11 @@ public class PessoaFisicaDAO extends DAO<PessoaFisica>{
     @Override
     protected void prepararStmtUpdate(Connection connection, PessoaFisica p) throws SQLException {
         int i = 0;
-        Date dt_atual = DateToSqlDate(getDataServer(connection));
         pstmt.setString(++i, p.getNm_pessoa_fisica());
         pstmt.setDate(++i, DateToSqlDate(p.getDt_nascimento()));
         pstmt.setString(++i, p.getDs_telefone());
         pstmt.setString(++i, p.getDs_celular());
-        pstmt.setDate(++i, dt_atual);
+        pstmt.setDate(++i, DateToSqlDate(getDataServer(connection)));
         pstmt.setInt(++i, p.getNr_compra_fidelidade());
         pstmt.setString(++i, p.getDs_endereco());
         pstmt.setString(++i, p.getNr_endereco());
