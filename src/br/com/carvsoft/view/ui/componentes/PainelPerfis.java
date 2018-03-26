@@ -24,7 +24,18 @@ public class PainelPerfis extends JPanel {
         perfis = getPerfisTeste();
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         for (Perfil p : perfis) {
-            add(new BtnPerfil(this, p));
+            BtnPerfil btn = new BtnPerfil(this, p);
+            //btn.putClientProperty("JComponent.sizeVariant", "small");
+            /*
+            button.putClientProperty("JButton.buttonType", "square")	
+            button.putClientProperty("JButton.buttonType", "gradient")	
+            button.putClientProperty("JButton.buttonType", "bevel")	
+            button.putClientProperty("JButton.buttonType", "textured")	
+            button.putClientProperty("JButton.buttonType", "roundRect")	
+            button.putClientProperty("JButton.buttonType", "recessed")	
+            button.putClientProperty("JButton.buttonType", "help")
+            */
+            add(btn);
         }
     }
 
