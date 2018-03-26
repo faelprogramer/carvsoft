@@ -9,7 +9,7 @@ import java.sql.SQLException;
  *
  * @author Carlos Rafael
  */
-public class PessoaFisicaDAO extends DAO<PessoaFisica>{
+public class PessoaFisicaDAO extends DAO<PessoaFisica> {
 
     @Override
     protected void configurarSqlDAO() {

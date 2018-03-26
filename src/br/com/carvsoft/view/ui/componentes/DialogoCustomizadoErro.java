@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class CustomErrorDialog {
+public class DialogoCustomizadoErro {
 
     public static void show(String titulo, String msg, Exception ex) {
         if (ex != null) {

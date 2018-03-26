@@ -1,7 +1,7 @@
 package br.com.carvsoft.control;
 
 import br.com.carvsoft.model.valueObject.EnumTipoMensagem;
-import br.com.carvsoft.view.ui.componentes.CustomErrorDialog;
+import br.com.carvsoft.view.ui.componentes.DialogoCustomizadoErro;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -31,7 +31,7 @@ public abstract class Control {
                 break;
             case ERRO:
                 //JOptionPane.showMessageDialog(componente, msg, titulo, JOptionPane.ERROR_MESSAGE);
-                CustomErrorDialog.show(titulo, msg, ex);
+                DialogoCustomizadoErro.show(titulo, msg, ex);
                 return;
             default:
                 JOptionPane.showMessageDialog(componente, msg, titulo, JOptionPane.INFORMATION_MESSAGE);

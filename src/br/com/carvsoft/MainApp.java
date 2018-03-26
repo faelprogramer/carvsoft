@@ -15,7 +15,11 @@ public class MainApp implements Runnable {
 
     @Override
     public void run() {
-        WebLookAndFeel.install();
+        if (System.getProperty("os.name").contains("Mac")) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+        } else {
+            WebLookAndFeel.install();
+        }
         Login l = new Login();
     }
 

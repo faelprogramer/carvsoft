@@ -2,6 +2,7 @@ package br.com.carvsoft.view;
 
 
 import br.com.carvsoft.model.valueObject.Usuario;
+import br.com.carvsoft.view.ui.componentes.PainelPerfis;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.HeadlessException;
@@ -34,21 +35,22 @@ public class TelaPrincipal extends JFrame {
         menuBar.add(jMenu_arquivo);
         setJMenuBar(menuBar);
         
-        
         JButton button;
         
         button = new JButton("Button 2 (CENTER)");
         
         pane.add(button, BorderLayout.CENTER);
 
-        button = new JButton("Button 3 (LINE_START)");
-        pane.add(button, BorderLayout.LINE_START);
+        PainelPerfis painelPerfis =  new PainelPerfis(u);
+        //button = new JButton("Button 3 (LINE_START)");
+        //pane.add(button, BorderLayout.LINE_START);
+        pane.add(painelPerfis, BorderLayout.LINE_START);
 
         button = new JButton("Long-Named Button 4 (PAGE_END)");
         pane.add(button, BorderLayout.PAGE_END);
 
-        button = new JButton("5 (LINE_END)");
-        pane.add(button, BorderLayout.LINE_END);
+        //button = new JButton("5 (LINE_END)");
+        //pane.add(button, BorderLayout.LINE_END);
         
         this.pack();
         this.setVisible(true);

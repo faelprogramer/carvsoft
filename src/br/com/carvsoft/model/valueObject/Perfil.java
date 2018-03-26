@@ -18,6 +18,12 @@ public class Perfil implements Comparable<Perfil> {
     public Perfil() {
     }
 
+    public Perfil(int cd_perfil, String ds_perfil, boolean vf_ativo) {
+        this.cd_perfil = cd_perfil;
+        this.ds_perfil = ds_perfil;
+        this.vf_ativo = vf_ativo;
+    }
+    
     public int getCd_perfil() {
         return cd_perfil;
     }

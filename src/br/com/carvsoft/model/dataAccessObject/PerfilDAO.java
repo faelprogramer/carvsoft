@@ -13,9 +13,6 @@ import java.util.List;
  */
 public class PerfilDAO extends DAO<Perfil> {
 
-    private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
-    private final FuncaoDAO FUNCAO_DAO = new FuncaoDAO();
-
     @Override
     protected void configurarSqlDAO() {
         sql_next_sequence = "SELECT nextval('perfil_seq')";
@@ -68,18 +65,20 @@ public class PerfilDAO extends DAO<Perfil> {
     @Override
     protected Perfil InstantElementFromResultSet(Connection connection) throws SQLException {
         Perfil p = new Perfil();
-
+        
+        UsuarioDAO u_dao = new UsuarioDAO();
+        
         p.setCd_perfil(rs.getInt("cd_perfil"));
         p.setDs_observacao(rs.getString("ds_observacao"));
         p.setDs_perfil(rs.getString("ds_perfil"));
         p.setDt_atualizacao(rs.getDate("dt_atualizacao"));
         p.setDt_criacao(rs.getDate("dt_criacao"));
         Usuario u = new Usuario(rs.getString("nm_usuario_atualizacao"));
-        p.setUsuario_atualizacao(USUARIO_DAO.getElement(connection, u));
+        p.setUsuario_atualizacao(u_dao.getElement(connection, u));
         u.setNm_usuario("nm_usuario_criador");
-        p.setUsuario_criador(USUARIO_DAO.getElement(connection, u));
+        p.setUsuario_criador(u_dao.getElement(connection, u));
         p.setVf_ativo(rs.getBoolean("vf_ativo"));
-        List funcoes = FUNCAO_DAO.getElements(connection,
+        List funcoes = new FuncaoDAO().getElements(connection,
                 "﻿select b.* from perfil_funcao a join funcao b on a.cd_funcao = b.cd_funcao where a.cd_perfil = "
                 + p.getCd_perfil());
         p.setFuncoes(funcoes);

@@ -12,8 +12,6 @@ import java.sql.SQLException;
  */
 public class FuncaoDAO extends DAO<Funcao> {
 
-    private final UsuarioDAO USUARIO_DAO = new UsuarioDAO();
-    
     @Override
     protected void configurarSqlDAO() {
         sql_next_sequence = "SELECT nextval('funcao_seq')";
@@ -66,15 +64,16 @@ public class FuncaoDAO extends DAO<Funcao> {
     @Override
     protected Funcao InstantElementFromResultSet(Connection connection) throws SQLException {
         Funcao f = new Funcao();
+        UsuarioDAO dao = new UsuarioDAO();
         f.setCd_funcao(rs.getInt("cd_funcao"));
         f.setDs_funcao(rs.getString("ds_funcao"));
         f.setDs_observacao(rs.getString("ds_observacao"));
         f.setDt_atualizacao(rs.getDate("dt_atualizacao"));
         f.setDt_criacao(rs.getDate("dt_criacao"));
         Usuario usuarioBusca = new Usuario(rs.getString("nm_usuario_atualizacao"));
-        f.setUsuario_atualizacao(USUARIO_DAO.getElement(connection, usuarioBusca));
+        f.setUsuario_atualizacao(dao.getElement(connection, usuarioBusca));
         usuarioBusca.setNm_usuario("nm_usuario_criador");
-        f.setUsuario_criador(USUARIO_DAO.getElement(connection, usuarioBusca));
+        f.setUsuario_criador(dao.getElement(connection, usuarioBusca));
         f.setVf_ativo(rs.getBoolean("vf_ativo"));
         return f;
     }

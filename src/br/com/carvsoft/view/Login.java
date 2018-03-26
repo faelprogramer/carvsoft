@@ -1,7 +1,7 @@
 package br.com.carvsoft.view;
 
 import br.com.carvsoft.control.LoginControl;
-import br.com.carvsoft.view.ui.UpperCaseDocument;
+import br.com.carvsoft.view.ui.util.UpperCaseDocument;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;

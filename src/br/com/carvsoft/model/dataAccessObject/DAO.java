@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Carlos Rafael
@@ -76,10 +78,18 @@ public abstract class DAO<E> {
     
     public List<E> getElements(Connection connection, String sql) throws SQLException {
         List<E> elements = new ArrayList<>();
-        rs = execSelect(connection, sql);
-        while (rs.next()) {            
+        try {        
+            rs = execSelect(connection, sql);
+            while (rs.next()) {            
             elements.add(InstantElementFromResultSet(connection));
         }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            closeRs();
+            closeStmt();
+        }
+        
         return elements;
     }
     
@@ -110,10 +120,7 @@ public abstract class DAO<E> {
             rs = stmt.executeQuery(sql);
         } catch (SQLException ex) {
             throw ex;
-        } finally {
-            closeStmt();
-            closeRs();
-        }
+        } 
         return rs;
     }
     

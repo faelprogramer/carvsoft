@@ -17,7 +17,7 @@ import javax.naming.AuthenticationException;
 public class LoginControl extends Control {
 
     private final Login login;
-    private final LoginRN loginRN;
+    private LoginRN loginRN;
 
     public LoginControl(Login login) {
         this.login = login;

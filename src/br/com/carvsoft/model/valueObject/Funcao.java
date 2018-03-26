@@ -19,6 +19,12 @@ public class Funcao implements Comparable<Funcao> {
     public Funcao() {
     }
 
+    public Funcao(int cd_funcao, String ds_funcao, boolean vf_ativo) {
+        this.cd_funcao = cd_funcao;
+        this.ds_funcao = ds_funcao;
+        this.vf_ativo = vf_ativo;
+    }
+    
     public int getCd_funcao() {
         return cd_funcao;
     }
