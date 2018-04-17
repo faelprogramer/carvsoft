@@ -1,5 +1,6 @@
 package br.com.carvsoft.view;
 
+import br.com.carvsoft.MainApp;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.view.ui.componentes.PainelFuncoes;
 import br.com.carvsoft.view.ui.componentes.PainelPerfis;
@@ -24,22 +25,20 @@ public class TelaPrincipal extends JFrame {
     private JMenuBar menuBar;
     private JMenu jMenu_arquivo;
     private JMenuItem menuItemSair;
-    private final Usuario usuarioLogado;
     LookAndFeel lf;
 
-    public TelaPrincipal(Usuario u) {
+    public TelaPrincipal() {
         super("Carv Soft");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        usuarioLogado = u;
-        initComponents(usuarioLogado);
+        initComponents();
         menuItemSair.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
         this.setVisible(true);
     }
 
-    private void initComponents(Usuario u) {
+    private void initComponents() {
         BorderLayout borderLayout = new BorderLayout();
         this.setLayout(borderLayout);
 
@@ -50,7 +49,7 @@ public class TelaPrincipal extends JFrame {
         JButton button;
         PainelFuncoes pf = new PainelFuncoes();
         
-        painelPerfis = new PainelPerfis(u, pf);
+        painelPerfis = new PainelPerfis(pf);
         //button = new JButton("Button 3 (LINE_START)");
         //pane.add(button, BorderLayout.LINE_START);
         pane.add(painelPerfis, BorderLayout.LINE_START);

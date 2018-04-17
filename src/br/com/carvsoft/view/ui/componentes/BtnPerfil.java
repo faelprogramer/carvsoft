@@ -4,7 +4,6 @@ import br.com.carvsoft.model.valueObject.Perfil;
 import java.awt.Cursor;
 
 import javax.swing.Action;
-import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 /**
@@ -13,14 +12,24 @@ import javax.swing.JToggleButton;
  */
 public class BtnPerfil extends JToggleButton {
 
-    public BtnPerfil(JPanel painel, Perfil perfil) {
-        super();
+    private Perfil perfil;
+    
+    public BtnPerfil(Perfil perfil) {
+        super(perfil.getDs_perfil());
+        this.perfil = perfil;
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        setText(perfil.getDs_perfil());        
     }
 
     public BtnPerfil(Action a) {
         super(a);
+    }
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 
 }

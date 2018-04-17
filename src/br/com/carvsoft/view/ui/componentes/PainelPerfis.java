@@ -1,8 +1,8 @@
 package br.com.carvsoft.view.ui.componentes;
 
+import br.com.carvsoft.MainApp;
 import br.com.carvsoft.model.valueObject.Funcao;
 import br.com.carvsoft.model.valueObject.Perfil;
-import br.com.carvsoft.model.valueObject.Usuario;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +16,19 @@ import javax.swing.border.TitledBorder;
  */
 public class PainelPerfis extends JPanel {
 
-    private final List<BtnPerfil>  botoes;
+    private List<BtnPerfil>  botoes;
     int teste = 20;
     
-    public PainelPerfis(Usuario u, PainelFuncoes painelFuncoes) {
+    public PainelPerfis(PainelFuncoes painelFuncoes) {
         super();
-        this.botoes = new ArrayList<>();
         setBorder(new TitledBorder("Perfis"));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        List<Perfil> perfis = getPerfisTeste(); //perfis = u.getPerfis();
+        List<Perfil> perfis = getPerfisTeste(); //MainApp.SESSAO.getUsuarioAutenticado().getPerfis();
+        criarListaBotoes(perfis);
+        adicionarAcoesAosBotoes(painelFuncoes);
+    }
 
-        for (Perfil p : perfis) {
-            BtnPerfil btn = new BtnPerfil(this, p);
-            botoes.add(btn);
-            add(btn);
-        }
+    private void adicionarAcoesAosBotoes(PainelFuncoes painelFuncoes) {
         for (BtnPerfil btn : botoes) {
             btn.addActionListener((ActionEvent e) -> {
                 for (BtnPerfil b : botoes) {
@@ -38,18 +36,25 @@ public class PainelPerfis extends JPanel {
                         b.setSelected(false);
                     }
                 }
-                painelFuncoes.setFuncoes(teste--);
+                //painelFuncoes.setFuncoes(teste--);
+                painelFuncoes.setFuncoes(btn.getPerfil().getFuncoes());
             });
         }
     }
 
+    private void criarListaBotoes(List<Perfil> perfis) {
+        botoes = new ArrayList<>();
+        for (Perfil p : perfis) {
+            BtnPerfil btn = new BtnPerfil(p);
+            botoes.add(btn);
+            add(btn);
+        }
+    }
     
     
     
     
-    
-    
-    
+
     private List<Perfil> getPerfisTeste() {
         List<Perfil> perfis = new ArrayList<>();
         List<Funcao> funcoes_1 = new ArrayList<>();

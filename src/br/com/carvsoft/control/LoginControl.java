@@ -29,7 +29,7 @@ public class LoginControl extends Control {
             Usuario u = loginRN.autenticar(instanciarUsuario());
             if (u != null) {
                 login.dispose();
-                TelaPrincipal telaPrincipal = new TelaPrincipal(u);
+                new TelaPrincipal();
             }
         } catch (SQLException | AuthenticationException | NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             exibirMsg(login, "Erro", ex.getMessage(), EnumTipoMensagem.ERRO, ex);

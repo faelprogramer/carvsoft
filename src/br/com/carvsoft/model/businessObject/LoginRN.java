@@ -1,6 +1,7 @@
 package br.com.carvsoft.model.businessObject;
 
 import br.com.carvsoft.model.dataAccessObject.UsuarioDAO;
+import br.com.carvsoft.model.util.seguranca.Password;
 import br.com.carvsoft.model.valueObject.Usuario;
 import br.com.carvsoft.model.valueObject.exceptions.AttemptExceededException;
 import java.io.UnsupportedEncodingException;
@@ -33,7 +34,7 @@ public class LoginRN extends RN {
             qtErroAutenticacao++;
             throw new AuthenticationException("Usuário inativo!");
         }
-        if (usuarioDoBanco.validarSenha(usuario.getDs_senha())) {
+        if (validarAutenticacao(usuarioDoBanco, usuario)) {
             return true;
         } else {
             qtErroAutenticacao++;
@@ -58,6 +59,13 @@ public class LoginRN extends RN {
         } finally {
             end();
         }
+    }
+    
+    private boolean validarAutenticacao(Usuario usuarioDoBanco, Usuario usuarioDaTela)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        String senhaCriptografada = Password.criptografarSenha(
+                usuarioDaTela.getDs_senha(), usuarioDoBanco.getDs_salt());
+        return senhaCriptografada.equals(usuarioDoBanco.getDs_senha());
     }
 
 }

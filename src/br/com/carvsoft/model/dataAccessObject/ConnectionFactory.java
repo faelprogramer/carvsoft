@@ -12,7 +12,7 @@ public abstract class ConnectionFactory {
     private static final String USER = "postgres",
             PASSWORD = "220319",
             DATABASE = "carvsoft",
-            HOST = "192.168.0.20",
+            HOST = "192.168.15.10",
             PORT = "5432",
             URL  = getUrlConnection(),
             DRIVER = "org.postgresql.Driver";

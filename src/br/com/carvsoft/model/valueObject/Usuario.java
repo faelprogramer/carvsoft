@@ -1,8 +1,6 @@
 package br.com.carvsoft.model.valueObject;
 
 import br.com.carvsoft.model.util.seguranca.Password;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -104,14 +102,6 @@ public class Usuario implements Comparable<Usuario> {
 
     public void setPerfis(List<Perfil> perfis) {
         this.perfis = perfis;
-    }
-
-    public boolean validarSenha(String senhaDigitada) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String senhaCriptografada;
-        senhaCriptografada = Password.criptografarSenha(senhaDigitada,
-                this.getDs_salt());
-        return senhaCriptografada.equals(this.getDs_senha());
-
     }
 
     @Override
