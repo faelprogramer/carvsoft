@@ -22,6 +22,8 @@ public class LoginControl extends Control {
     public LoginControl(Login login) {
         this.login = login;
         loginRN = new LoginRN();
+        login.getTxt_usuario().setText("rafael");
+        login.getTxt_senha().setText("1234");
     }
 
     public void btnOk() {

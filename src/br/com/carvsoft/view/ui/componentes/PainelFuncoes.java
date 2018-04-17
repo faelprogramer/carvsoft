@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 /**
  *
@@ -18,7 +19,9 @@ public class PainelFuncoes extends JPanel {
     public PainelFuncoes() {
         super();
         this.botoes = new ArrayList<>();
-        setLayout(new GridLayout(8, 4));
+        //setLayout(new GridLayout(0, 4, 20,20));
+        setLayout(new SpringLayout());
+
     }
 
     public void setFuncoes(List<Funcao> funcoes) {
@@ -30,7 +33,14 @@ public class PainelFuncoes extends JPanel {
         for (JButton btn : botoes) {
             add(btn);
             updateUI();
+
         }
+        SpringUtilities.makeGrid(this,
+                botoes.size(), 3, //rows, cols
+                5, 5, //initialX, initialY
+                5, 5);//xPad, yPad
+        updateUI();
+
     }
 
     private void criarListaBtnFuncoes(List<Funcao> funcoes) {
@@ -38,8 +48,7 @@ public class PainelFuncoes extends JPanel {
             botoes.add(new BtnFuncao(f));
         }
     }
-    
-    
+
     public void setFuncoes(int total) {
         for (int i = 0; i < total; i++) {
             botoes.add(new JButton("btn " + i));
@@ -48,6 +57,5 @@ public class PainelFuncoes extends JPanel {
             System.out.println(btn.getText());
         }
     }
-    
-    
+
 }
